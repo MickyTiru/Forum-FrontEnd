@@ -9,14 +9,17 @@ import "react-quill/dist/quill.snow.css";
 const AnswerQuestion = ({ questionId }) => {
   const [userData, setUserData] = useContext(userContext);
   const [value, setValue] = useState("");
-
+  const [form, setForm] = useState({});
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${process.env.REACT_APP_base_url}/api/answer`, {
+      await axios.post(`${process.env.REACT_APP-base-url}/api/answer`, {
         id: userData.user.id,
         questionId: questionId,
-        answer: value,
+        answer: form.answer,
       });
       window.location.reload(false);
     } catch (err) {
@@ -33,16 +36,14 @@ const AnswerQuestion = ({ questionId }) => {
         <Link to="/" className="text-decoration-none text-reset cursor-pointer">
           Go to Question page
         </Link>
-
-        <ReactQuill
-          className="w-100 quill my-2"
-          theme="snow"
-          value={value}
-          onChange={setValue}
-          placeholder="Question Description..."
-        />
-
-        <button className="answer_post_btn" type="">
+        <textarea
+          onChange={handleChange}
+          className="answer_input"
+          placeholder="Your Answer..."
+          name="answer"
+          id=""
+        ></textarea>
+        <button className="answer_post_btn" type="submit">
           Post Your Answer
         </button>
       </form>

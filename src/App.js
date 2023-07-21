@@ -3,7 +3,7 @@ import { useContext, useEffect } from 'react';
 import { userContext } from './context/userContext';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css';
-import Signup from './Pages/Signup/Signup';
+import Signup from './Pages/SignUp/Signup';
 import Login from './Pages/Login/Login';
 import Home from './Pages/Home/Home';
 import Header from "./component/Header/Header";
@@ -19,7 +19,7 @@ function App() {
        localStorage.setItem("auth-token", "");
        token = "";
      } else {
-       const userRes = await axios.get("http://localhost:4000/api/users", {
+       const userRes = await axios.get(`${process.env.REACT_APP-base-url}/api/users`, {
          headers: { "x-auth-token": token },
        });
        console.log(userRes);

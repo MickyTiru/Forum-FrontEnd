@@ -23,7 +23,7 @@ const Login = () => {
         e.preventDefault();
         try {
             //sending user data to database to be logged in
-            const loginRes = await axios.post('http://localhost:4000/api/users/login',
+            const loginRes = await axios.post(`${process.env.REACT_APP-base-url}/api/users/login`,
                 {
                     email: form.email,
                     password: form.password
